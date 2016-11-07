@@ -1,2 +1,11 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+#map{
+  height: 100%;
+  margin: 0;
+}
