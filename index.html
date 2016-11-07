@@ -7,6 +7,7 @@
 
       <script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
       <!--  1. add my API keylater
             2. &libraries=places (intgrated libraries with google api code, and they are loaded separately and only when needed)
@@ -36,7 +37,7 @@
       var mapOptions = {
                 center: new google.maps.LatLng(42.3405,-70.9755),
                 zoom: 12,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.HYBRID
                 };
 
         // create new google maps map object and pass map div and map options object
