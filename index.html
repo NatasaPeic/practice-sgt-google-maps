@@ -8,9 +8,12 @@
       <script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
 
-      <!-- add my API key and later &libraries=places (intgrated libraries with google api code, and they are loaded separately and only when needed)-->
+      <!--  1. add my API keylater
+            2. &libraries=places (intgrated libraries with google api code, and they are loaded separately and only when needed)
+            3. Add weather libraries with comma ,weather
+      -->
 
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg&libraries=places"  ></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg&libraries=places,weather"  ></script>
 
 
     </head>
@@ -108,6 +111,19 @@
 
           });
         });
+
+
+        // add weahterLayer object
+        var weatherLayer = new google.maps.weather.WeatherLayer({
+          temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT,
+        });
+        // set weatherLayer to the map
+        weatherLayer.setMap(map);
+
+
+        // create cloud layer and set it on the map
+        var cloudLayer = new google.maps.weather.CloudLayer();
+        cloudLayer.setMap(map);
 
 
       </script>
