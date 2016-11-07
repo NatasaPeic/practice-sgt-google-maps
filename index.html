@@ -52,6 +52,23 @@
           });
 
 
+        // add infoWindowOptions object which assings some basic property
+        var infoWindowOptions = {
+        content: 'Boston Harbor Is Here!'
+        };
+
+
+        // create infoWindow object which will cause for content window to open on the map
+        var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+        // pass object (maker) to be listen to using addListener event handler, type of event is click and function that is executed when event is triggered
+        google.maps.event.addListener(marker,'click',function(e){
+
+          // infoWindow opens on the marker of the map
+          infoWindow.open(map, marker);
+
+      });
+
+
       </script>
 
 
