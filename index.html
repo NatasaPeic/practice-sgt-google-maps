@@ -8,14 +8,17 @@
       <script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
 
-      <!-- add my API key -->
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg"  ></script>
+      <!-- add my API key and later &libraries=places (intgrated libraries with google api code, and they are loaded separately and only when needed)-->
+
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg&libraries=places"  ></script>
 
 
     </head>
     <body class="container-fluid">
       <h3>My Google Maps Demo</h3>
+      <input type="text" id="autocomplete">
       <div id="map"></div>
+
 
 
 
@@ -29,6 +32,10 @@
         // create new google maps map object and pass map div and map options object
         var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+        // added places of business (caffees, resturants etc.)
+        var acOptions = {
+          types: ['establishment']
+        };
 
         // -------->
                         // create markerOptions object
@@ -66,7 +73,41 @@
           // infoWindow opens on the marker of the map
           infoWindow.open(map, marker);
 
-      });
+          });
+
+
+        // add autocomplete object and pass Autocomplete element
+        var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),acOptions);
+        // bind that object to the map
+        // it will show results to the current bouds to the map
+        autocomplete.bindTo('bounds',map);
+        var infoWindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+          map: map
+        });
+
+
+        // create event Listener. It listens for changes in this selection
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+          infoWindow.close();
+          var place = autocomplete.getPlace();
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+          }
+
+          // it places marker on the map and opens a info window with a name of the place
+          marker.setPosition(place.geometry.location);
+          infoWindow.setContent('<div><strong>' + place.name + '</strong><br>');
+          infoWindow.open(map, marker);
+          google.maps.event.addListener(marker,'click',function(e){
+
+            infoWindow.open(map, marker);
+
+          });
+        });
 
 
       </script>
