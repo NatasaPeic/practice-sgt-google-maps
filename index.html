@@ -13,14 +13,21 @@
             3. Add weather libraries with comma ,weather
       -->
 
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg&libraries=places,weather"  ></script>
+
+      <!-- loads google maps api javascript loader. if data is loaded from device, false, otherwise true -->
+      <script
+       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg&libraries=places,weather"  ></script>
 
 
     </head>
     <body class="container-fluid">
       <h3>My Google Maps Demo</h3>
       <input type="text" id="autocomplete">
-      <div id="map"></div>
+
+       <div id="map">
+
+       </div>
+
 
 
 
@@ -59,6 +66,8 @@
         var marker = new google.maps.Marker({
               position: new google.maps.LatLng(42.3405, -70.9755),
               map : map
+              // add animation for fun
+              // animation: google.maps.Animation.BOUNCE
           });
 
 
@@ -124,6 +133,13 @@
         // create cloud layer and set it on the map
         var cloudLayer = new google.maps.weather.CloudLayer();
         cloudLayer.setMap(map);
+
+
+        // create event listener to zoom location
+        // google.maps.event.addListener(marker,'click',function() {
+        //    map.setZoom(9);
+        //    map.setCenter(marker.getPosition());
+        //  });
 
 
       </script>
