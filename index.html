@@ -8,6 +8,8 @@
       <script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
 <!--<script type="text/javascript" src="http://www.marinetraffic.com/js/embed.js"></script>-->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg"  ></script>
       <style>
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
@@ -26,21 +28,45 @@
     <body class="container-fluid">
       <h3>My Google Maps Demo</h3>
       <div id="map"></div>
+
+
+
       <script>
-        function initMap() {
-          var uluru = {lat: 42.3405, lng: -70.9755};
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 14,
-            center: uluru
+      var mapOptions = {
+                center: new google.maps.LatLng(42.3405,-70.9755),
+                zoom: 12,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+        // create new google maps map object and pass map div and map options object
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+
+        // -------->
+                        // create markerOptions object
+                        // var markerOptions = {
+                        //                 position: new google.maps.LatLng(42.3405, -70.9755),
+                        //
+                        //               };
+
+
+                        // create maker object
+                        // var marker = new google.maps.Marker(markerOptions);
+                        // marker.setMap(map);
+
+        // <--------- from basic Google Maps API tutorial http://gmap-tutorial-101.appspot.com/mapsapi101/1
+
+
+        // wrapped map and marker into variable and place options objects within them
+        var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(42.3405, -70.9755),
+              map : map
           });
-          var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-          });
-        }
+          // marker.setMap(map);
+
       </script>
-      <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuuD3V89o6ZdesadXCbfM4D2pza1oHdRg&callback=initMap">
-      </script>
+
+
+
     </body>
   </html>
