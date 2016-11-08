@@ -1,6 +1,6 @@
 ## TASK #4
--Study Google Javascript API and look at examples https://developers.google.com/maps/documentation/javascript/
--Display the area around Boston harbor on Google Maps
+- Study Google Javascript API and look at examples https://developers.google.com/maps/documentation/javascript/
+- Display the area around Boston harbor on Google Maps
 
 ## STEPS
 
