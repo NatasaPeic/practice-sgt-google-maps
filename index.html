@@ -23,7 +23,7 @@
     </head>
     <body class="container-fluid">
       <h3>My Google Maps Demo</h3>
-      <input type="text" id="autocomplete">
+      <input  class="controls" type="text" id="autocomplete">
 
        <div id="map">
 
@@ -37,7 +37,7 @@
       var mapOptions = {
                 center: new google.maps.LatLng(42.3405,-70.9755),
                 zoom: 12,
-                mapTypeId: google.maps.MapTypeId.HYBRID
+                mapTypeId: google.maps.MapTypeId.roadmap
                 };
 
         // create new google maps map object and pass map div and map options object
@@ -63,7 +63,7 @@
         // <--------- from basic Google Maps API tutorial http://gmap-tutorial-101.appspot.com/mapsapi101/1
 
 
-        // wrapped map and marker into variable and place options objects within them
+    /*  // wrapped map and marker into variable and place options objects within them
         var marker = new google.maps.Marker({
               position: new google.maps.LatLng(42.3405, -70.9755),
               map : map
@@ -88,6 +88,8 @@
 
           });
 
+          */
+
 
         // add autocomplete object and pass Autocomplete element
         var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),acOptions);
@@ -98,7 +100,7 @@
         var marker = new google.maps.Marker({
           map: map
         });
-
+// '<img src="http://i.imgur.com/hRCMoaM.jpg" />
 
         // create event Listener. It listens for changes in this selection
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -113,7 +115,8 @@
 
           // it places marker on the map and opens a info window with a name of the place
           marker.setPosition(place.geometry.location);
-          infoWindow.setContent('<div><strong>' + place.name + '</strong><br>');
+          infoWindow.setContent('<div><strong>' + place.name + place.images +
+                place.formatted_address +  '</strong><br>');
           infoWindow.open(map, marker);
           google.maps.event.addListener(marker,'click',function(e){
 
