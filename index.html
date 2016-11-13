@@ -21,134 +21,40 @@
 
 
     </head>
-    <body class="container-fluid">
-      <h3>My Google Maps Demo</h3>
-      <input  class="controls" type="text" id="autocomplete">
+    <body>
+  <div id="map" style="width: 500px; height: 400px;"></div>
 
-       <div id="map">
+  <script type="text/javascript">
+    var locations = [
+      ['Boat #1', 42.3405,-70.9755, 4],
+      ['Boat #2', 42.3505,-70.9855, 5],
+      ['Boat #3', 42.3605,-70.9955, 3],
 
-       </div>
+    ];
 
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(42.3405,-70.9755),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
 
+    var infowindow = new google.maps.InfoWindow();
 
+    var marker, i;
 
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
 
-      <script>
-      var mapOptions = {
-                center: new google.maps.LatLng(42.3405,-70.9755),
-                zoom: 12,
-                mapTypeId: google.maps.MapTypeId.roadmap
-                };
-
-        // create new google maps map object and pass map div and map options object
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-        // added places of business (caffees, resturants etc.)
-        var acOptions = {
-          types: ['establishment']
-        };
-
-        // -------->
-                        // create markerOptions object
-                        // var markerOptions = {
-                        //                 position: new google.maps.LatLng(42.3405, -70.9755),
-                        //
-                        //               };
-
-
-                        // create maker object
-                        // var marker = new google.maps.Marker(markerOptions);
-                        // marker.setMap(map);
-
-        // <--------- from basic Google Maps API tutorial http://gmap-tutorial-101.appspot.com/mapsapi101/1
-
-
-
-
-
-    // wrapped map and marker into variable and place options objects within them
-        var marker = new google.maps.Marker({
-              position: new google.maps.LatLng(42.3405, -70.9755),
-              map : map
-              // add animation for fun
-              // animation: google.maps.Animation.BOUNCE
-          });
-
-
-        // add infoWindowOptions object which assings some basic property
-        var infoWindowOptions = {
-        content: 'Boston Harbor Is Here!' + '<img border="0" align="left"  src="http://i.imgur.com/hRCMoaM.jpg">' + '<br>' + 'Latitude: 42.3405' + '<br>' + 'Longitue: -70.9755'
-        };
-
-
-        // create infoWindow object which will cause for content window to open on the map
-        var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-        // pass object (maker) to be listen to using addListener event handler, type of event is click and function that is executed when event is triggered
-        google.maps.event.addListener(marker,'click',function(e){
-
-          // infoWindow opens on the marker of the map
-          infoWindow.open(map, marker);
-
-          });
-
-
-
-
-        // add autocomplete object and pass Autocomplete element
-        var autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),acOptions);
-        // bind that object to the map
-        // it will show results to the current bouds to the map
-        autocomplete.bindTo('bounds',map);
-
-
-
-        // create event Listener. It listens for changes in this selection
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-          infoWindow.close();
-          var place = autocomplete.getPlace();
-          if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
-          } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
-          }
-
-          // it places marker on the map and opens a info window with a name of the place
-          marker.setPosition(place.geometry.location);
-          infoWindow.setContent('<div><strong>' + place.name + place.images +
-                place.formatted_address +  '</strong><br>');
-          infoWindow.open(map, marker);
-          google.maps.event.addListener(marker,'click',function(e){
-
-            infoWindow.open(map, marker);
-
-          });
-        });
-
-
-        // add weahterLayer object
-        var weatherLayer = new google.maps.weather.WeatherLayer({
-          temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT,
-        });
-        // set weatherLayer to the map
-        weatherLayer.setMap(map);
-
-
-        // create cloud layer and set it on the map
-        var cloudLayer = new google.maps.weather.CloudLayer();
-        cloudLayer.setMap(map);
-
-
-        // create event listener to zoom location
-        // google.maps.event.addListener(marker,'click',function() {
-        //    map.setZoom(9);
-        //    map.setCenter(marker.getPosition());
-        //  });
-
-
-      </script>
-
-
-
-    </body>
-  </html>
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>
+</body>
+</html>
